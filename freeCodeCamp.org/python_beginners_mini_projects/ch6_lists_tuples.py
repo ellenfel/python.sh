@@ -85,6 +85,11 @@ print(mylist)
 
 # Tuples
 
+# A tuple is an immutable sequence of elements, enclosed in parentheses ().
+# Unlike lists, tuples cannot be modified once created.
+# Tuples are commonly used to store related pieces of data together.
+# Tuples are faster than lists because they are immutable.
+
 mytuple = tuple(('Dave', 42, True))
 
 anothertuple = (1, 4, 2, 8, 2, 2)
