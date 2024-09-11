@@ -100,6 +100,9 @@ print(band)
 print(band["member1"]["name"])
 
 # Sets
+# Sets are mutable, unordered collections of unique elements that allow
+# for efficient membership testing and mathematical set operations.
+
 
 nums = {1, 2, 3, 4}
 
