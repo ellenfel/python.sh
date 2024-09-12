@@ -14,49 +14,92 @@ print("")
 # Initialize scores
 player_score = 0
 computer_score = 0
-
-# Run the game for 3 rounds
-for _ in range(3):
-    playerchoice = input(
+def get_player_choice():
+    player_choice = input(
         "Enter...\n1 for Rock,\n2 for Paper, or \n3 for Scissors:\n\n")
-
-    player = int(playerchoice)
+    player = int(player_choice)
     if player not in [1, 2, 3]:
         sys.exit("Invalid input. You must enter 1, 2, or 3.")
+    return player
 
-    computerchoice = random.choice("123")
-    computer = int(computerchoice)
+def get_computer_choice():
+    computer_choice = random.choice("123")
+    return int(computer_choice)
 
+def determine_winner(player, computer):
+    if player == 1 and computer == 3:
+        return "player"
+    elif player == 2 and computer == 1:
+        return "player"
+    elif player == 3 and computer == 2:
+        return "player"
+    elif player == computer:
+        return "tie"
+    else:
+        return "computer"
+
+def print_choices(player, computer):
     print("")
-    # Convert the 'computer' enum value to a string without the 'RPS.' prefix
     print("You chose " + str(RPS(player)).replace('RPS.', '') + ".")
     print("Python chose " + str(RPS(computer)).replace('RPS.', '') + ".")
     print("")
 
-    if player == 1 and computer == 3:
+def print_winner(winner):
+    if winner == "player":
         print("🎉 You win!")
-        player_score += 1
-    elif player == 2 and computer == 1:
-        print("🎉 You win!")
-        player_score += 1
-    elif player == 3 and computer == 2:
-        print("🎉 You win!")
-        player_score += 1
-    elif player == computer:
-        print("😲 Tie game!")
-    else:
+    elif winner == "computer":
         print("🐍 Python wins!")
+    else:
+        print("😲 Tie game!")
+
+def print_final_scores(player_score, computer_score):
+    print("\nFinal Scores:")
+    print("You: " + str(player_score))
+    print("Python: " + str(computer_score))
+
+    if player_score > computer_score:
+        print("🎉 You win the game!")
+    elif player_score < computer_score:
+        print("🐍 Python wins the game!")
+    else:
+        print("😲 It's a tie!")
+
+# Run the game for 3 rounds
+for _ in range(3):
+    player = get_player_choice()
+    computer = get_computer_choice()
+
+    print_choices(player, computer)
+
+    winner = determine_winner(player, computer)
+    print_winner(winner)
+
+    if winner == "player":
+        player_score += 1
+    elif winner == "computer":
         computer_score += 1
 
 # Print final scores
-print("\nFinal Scores:")
-print("You: " + str(player_score))
-print("Python: " + str(computer_score))
+print_final_scores(player_score, computer_score)
+def play_rps_game():
+    player_score = 0
+    computer_score = 0
 
-# Determine the winner
-if player_score > computer_score:
-    print("🎉 You win the game!")
-elif player_score < computer_score:
-    print("🐍 Python wins the game!")
-else:
-    print("😲 It's a tie!")
+    for _ in range(3):
+        player = get_player_choice()
+        computer = get_computer_choice()
+
+        print_choices(player, computer)
+
+        winner = determine_winner(player, computer)
+        print_winner(winner)
+
+        if winner == "player":
+            player_score += 1
+        elif winner == "computer":
+            computer_score += 1
+
+    print_final_scores(player_score, computer_score)
+
+# Call the function to play the game
+play_rps_game()
