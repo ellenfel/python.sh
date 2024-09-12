@@ -64,23 +64,7 @@ def print_final_scores(player_score, computer_score):
     else:
         print("😲 It's a tie!")
 
-# Run the game for 3 rounds
-for _ in range(3):
-    player = get_player_choice()
-    computer = get_computer_choice()
 
-    print_choices(player, computer)
-
-    winner = determine_winner(player, computer)
-    print_winner(winner)
-
-    if winner == "player":
-        player_score += 1
-    elif winner == "computer":
-        computer_score += 1
-
-# Print final scores
-print_final_scores(player_score, computer_score)
 def play_rps_game():
     player_score = 0
     computer_score = 0
