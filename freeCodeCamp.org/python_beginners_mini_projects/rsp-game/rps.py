@@ -64,6 +64,16 @@ def print_final_scores(player_score, computer_score):
     else:
         print("😲 It's a tie!")
 
+def play_again():
+    choice = input("\nDo you want to play again? (Y to play again, Q to quit): ").strip().upper()
+    if choice == 'Y':
+        play_rps_game()
+    elif choice == 'Q':
+        print("Thanks for playing!")
+        sys.exit()
+    else:
+        print("Invalid input. Please enter Y to play again or Q to quit.")
+        play_again()
 
 def play_rps_game():
     player_score = 0
@@ -84,6 +94,7 @@ def play_rps_game():
             computer_score += 1
 
     print_final_scores(player_score, computer_score)
+    play_again()
 
 # Call the function to play the game
 play_rps_game()
