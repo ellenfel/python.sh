@@ -4,6 +4,8 @@ import sys
 import random
 from enum import Enum
 
+game_count = 0
+
 class RPS(Enum):
     ROCK = 1
     PAPER = 2
@@ -63,6 +65,11 @@ def print_final_scores(player_score, computer_score):
         print("🐍 Python wins the game!")
     else:
         print("😲 It's a tie!")
+
+    global game_count
+    game_count += 1
+
+    print("\nGame count: " + str(game_count))
 
 def play_again():
     choice = input("\nDo you want to play again? (Y to play again, Q to quit): ").strip().upper()
