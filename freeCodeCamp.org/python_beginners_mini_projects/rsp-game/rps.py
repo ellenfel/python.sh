@@ -4,17 +4,21 @@ import sys
 import random
 from enum import Enum
 
+# Enum for Rock, Paper, Scissors choices
 class RPS(Enum):
     ROCK = 1
     PAPER = 2
     SCISSORS = 3
 
+# Class to handle the Rock, Paper, Scissors game logic
 class RPSGame:
     def __init__(self):
+        # Initialize game counters
         self.game_count = 0
         self.player_wins = 0
         self.computer_wins = 0
 
+    # Get player's choice
     def get_player_choice(self):
         player_choice = input(
             "Enter...\n1 for Rock,\n2 for Paper, or \n3 for Scissors:\n\n")
@@ -23,10 +27,12 @@ class RPSGame:
             sys.exit("Invalid input. You must enter 1, 2, or 3.")
         return player
 
+    # Get computer's choice
     def get_computer_choice(self):
         computer_choice = random.choice("123")
         return int(computer_choice)
 
+    # Closure to determine and print the winner
     def determine_winner_closure(self):
         def determine_winner(player, computer):
             if player == 1 and computer == 3:
@@ -52,12 +58,14 @@ class RPSGame:
 
         return determine_winner, print_winner
 
+    # Print the choices made by player and computer
     def print_choices(self, player, computer):
         print("")
         print("You chose " + str(RPS(player)).replace('RPS.', '') + ".")
         print("Python chose " + str(RPS(computer)).replace('RPS.', '') + ".")
         print("")
 
+    # Print the final scores of the game
     def print_final_scores(self, player_score, computer_score):
         print("\nFinal Scores:")
         print("You: " + str(player_score))
@@ -73,9 +81,11 @@ class RPSGame:
         self.game_count += 1
         print("\nGame count: " + str(self.game_count))
 
+    # Print the overall scores of all games played
     def print_overall_scores(self):
         print(f"\nOverall Scores -> Player: {self.player_wins}, Computer: {self.computer_wins}")
 
+    # Ask the player if they want to play again
     def play_again(self):
         choice = input("\nDo you want to play again? (Y to play again, Q to quit): ").strip().upper()
         if choice == 'Y':
@@ -87,6 +97,7 @@ class RPSGame:
             print("Invalid input. Please enter Y to play again or Q to quit.")
             self.play_again()
 
+    # Main game loop for playing Rock, Paper, Scissors
     def play_rps_game(self):
         player_score = 0
         computer_score = 0
