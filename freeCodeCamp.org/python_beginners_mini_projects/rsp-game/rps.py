@@ -21,7 +21,7 @@ class RPSGame:
     # Get player's choice
     def get_player_choice(self):
         player_choice = input(
-            "Enter...\n1 for Rock,\n2 for Paper, or \n3 for Scissors:\n\n")
+            "\nEnter...\n1 for Rock,\n2 for Paper, or \n3 for Scissors:\n\n")
         player = int(player_choice)
         if player not in [1, 2, 3]:
             sys.exit("Invalid input. You must enter 1, 2, or 3.")
@@ -61,8 +61,9 @@ class RPSGame:
     # Print the choices made by player and computer
     def print_choices(self, player, computer):
         print("")
-        print("You chose " + str(RPS(player)).replace('RPS.', '') + ".")
-        print("Python chose " + str(RPS(computer)).replace('RPS.', '') + ".")
+        print(f"\nYou chose {str(RPS(player)).replace('RPS.', '').title()}.")
+        print(f"Python chose {str(RPS(computer)).replace('RPS.', '').title()}.\n")
+
         print("")
 
     # Print the final scores of the game
@@ -72,7 +73,7 @@ class RPSGame:
         print("Python: " + str(computer_score))
 
         if player_score > computer_score:
-            print("🎉 You win the game!")
+            print("\n🎉 You win the game!")
         elif player_score < computer_score:
             print("🐍 Python wins the game!")
         else:
