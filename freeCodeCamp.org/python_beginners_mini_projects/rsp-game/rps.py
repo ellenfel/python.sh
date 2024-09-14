@@ -1,10 +1,12 @@
-#rock paper scissors game
+# rock paper scissors game
 
 import sys
 import random
 from enum import Enum
 
 game_count = 0
+player_wins = 0
+computer_wins = 0
 
 class RPS(Enum):
     ROCK = 1
@@ -12,8 +14,6 @@ class RPS(Enum):
     SCISSORS = 3
 
 print("")
-
-
 
 def get_player_choice():
     player_choice = input(
@@ -50,23 +50,13 @@ def determine_winner_closure():
         else:
             print("😲 Tie game!")
 
-    def update_scores(winner):
-        nonlocal player_wins, computer_wins
-        if winner == "player":
-            player_wins += 1
-        elif winner == "computer":
-            computer_wins += 1
-
     return determine_winner, print_winner
-
 
 def print_choices(player, computer):
     print("")
     print("You chose " + str(RPS(player)).replace('RPS.', '') + ".")
     print("Python chose " + str(RPS(computer)).replace('RPS.', '') + ".")
     print("")
-
-
 
 def print_final_scores(player_score, computer_score):
     print("\nFinal Scores:")
@@ -85,6 +75,10 @@ def print_final_scores(player_score, computer_score):
 
     print("\nGame count: " + str(game_count))
 
+def print_overall_scores():
+    global player_wins, computer_wins
+    print(f"\nOverall Scores -> Player: {player_wins}, Computer: {computer_wins}")
+
 def play_again():
     choice = input("\nDo you want to play again? (Y to play again, Q to quit): ").strip().upper()
     if choice == 'Y':
@@ -99,9 +93,6 @@ def play_again():
 def play_rps_game():
     player_score = 0
     computer_score = 0
-
-    player_wins = 0
-    computer_wins = 0
 
     determine_winner, print_winner = determine_winner_closure()
 
@@ -119,9 +110,15 @@ def play_rps_game():
         elif winner == "computer":
             computer_score += 1
 
-    print_final_scores(player_score, computer_score)
-    play_again()
+    global player_wins, computer_wins
+    if player_score > computer_score:
+        player_wins += 1
+    elif player_score < computer_score:
+        computer_wins += 1
 
+    print_final_scores(player_score, computer_score)
+    print_overall_scores()
+    play_again()
 
 # Call the function to play the game
 play_rps_game()
