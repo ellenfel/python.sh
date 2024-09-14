@@ -13,9 +13,8 @@ class RPS(Enum):
 
 print("")
 
-# Initialize scores
-player_score = 0
-computer_score = 0
+
+
 def get_player_choice():
     player_choice = input(
         "Enter...\n1 for Rock,\n2 for Paper, or \n3 for Scissors:\n\n")
@@ -28,17 +27,38 @@ def get_computer_choice():
     computer_choice = random.choice("123")
     return int(computer_choice)
 
-def determine_winner(player, computer):
-    if player == 1 and computer == 3:
-        return "player"
-    elif player == 2 and computer == 1:
-        return "player"
-    elif player == 3 and computer == 2:
-        return "player"
-    elif player == computer:
-        return "tie"
-    else:
-        return "computer"
+def determine_winner_closure():
+    def determine_winner(player, computer):
+        if player == 1 and computer == 3:
+            winner = "player"
+        elif player == 2 and computer == 1:
+            winner = "player"
+        elif player == 3 and computer == 2:
+            winner = "player"
+        elif player == computer:
+            winner = "tie"
+        else:
+            winner = "computer"
+        
+        return winner
+
+    def print_winner(winner):
+        if winner == "player":
+            print("🎉 You win!")
+        elif winner == "computer":
+            print("🐍 Python wins!")
+        else:
+            print("😲 Tie game!")
+
+    def update_scores(winner):
+        nonlocal player_wins, computer_wins
+        if winner == "player":
+            player_wins += 1
+        elif winner == "computer":
+            computer_wins += 1
+
+    return determine_winner, print_winner
+
 
 def print_choices(player, computer):
     print("")
@@ -46,13 +66,7 @@ def print_choices(player, computer):
     print("Python chose " + str(RPS(computer)).replace('RPS.', '') + ".")
     print("")
 
-def print_winner(winner):
-    if winner == "player":
-        print("🎉 You win!")
-    elif winner == "computer":
-        print("🐍 Python wins!")
-    else:
-        print("😲 Tie game!")
+
 
 def print_final_scores(player_score, computer_score):
     print("\nFinal Scores:")
@@ -86,6 +100,11 @@ def play_rps_game():
     player_score = 0
     computer_score = 0
 
+    player_wins = 0
+    computer_wins = 0
+
+    determine_winner, print_winner = determine_winner_closure()
+
     for _ in range(3):
         player = get_player_choice()
         computer = get_computer_choice()
@@ -102,6 +121,7 @@ def play_rps_game():
 
     print_final_scores(player_score, computer_score)
     play_again()
+
 
 # Call the function to play the game
 play_rps_game()
