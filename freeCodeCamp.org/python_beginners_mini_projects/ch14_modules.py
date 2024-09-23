@@ -11,21 +11,17 @@ import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(current_dir, 'rsp-game'))
 
-from rps import RPSGame
-
-
-
-import kansas
+try:
+    from rps import RPSGame
+except ImportError:
+    print("Module rps not found. Please ensure 'Desktop/workenv/python/python_roadmap.sh/freeCodeCamp.org/python_beginners_mini_projects/rsp-game/rps.py' exists.")
+    sys.exit(1)
 
 print(pi)
 
 # for item in dir(rdm):
 #     print(item)
 
-print(kansas.capital)
-kansas.randomfunfact()
-
-print(__name__)
-print(kansas.__name__)
-
-RPSGame()
+# Create an instance of RPSGame and start the game
+game = RPSGame()
+game.play_rps_game()
