@@ -12,16 +12,17 @@ class RPS(Enum):
 
 # Class to handle the Rock, Paper, Scissors game logic
 class RPSGame:
-    def __init__(self):
+    def __init__(self, name):
         # Initialize game counters
         self.game_count = 0
         self.player_wins = 0
         self.computer_wins = 0
+        self.name = name  # Store the player's name
 
     # Get player's choice
     def get_player_choice(self):
         player_choice = input(
-            "\nEnter...\n1 for Rock,\n2 for Paper, or \n3 for Scissors:\n\n")
+            f"\n{self.name}, enter...\n1 for Rock,\n2 for Paper, or \n3 for Scissors:\n\n")
         player = int(player_choice)
         if player not in [1, 2, 3]:
             sys.exit("Invalid input. You must enter 1, 2, or 3.")
@@ -50,7 +51,7 @@ class RPSGame:
 
         def print_winner(winner):
             if winner == "player":
-                print("🎉 You win!")
+                print(f"🎉 {self.name} wins!")
             elif winner == "computer":
                 print("🐍 Python wins!")
             else:
@@ -61,7 +62,7 @@ class RPSGame:
     # Print the choices made by player and computer
     def print_choices(self, player, computer):
         print("")
-        print(f"\nYou chose {str(RPS(player)).replace('RPS.', '').title()}.")
+        print(f"\n{self.name} chose {str(RPS(player)).replace('RPS.', '').title()}.")
         print(f"Python chose {str(RPS(computer)).replace('RPS.', '').title()}.\n")
 
         print("")
@@ -69,26 +70,26 @@ class RPSGame:
     # Print the final scores of the game
     def print_final_scores(self, player_score, computer_score):
         print("\nFinal Scores:")
-        print("You: " + str(player_score))
+        print(f"{self.name}: " + str(player_score))
         print("Python: " + str(computer_score))
 
         if player_score > computer_score:
-            print("\n🎉 You win the game!")
+            print(f"\n🎉 {self.name} wins the game!")
         elif player_score < computer_score:
             print("🐍 Python wins the game!")
         else:
             print("😲 It's a tie!")
 
         self.game_count += 1
-        print("\nGame count: " + str(self.game_count))
+        print(f"\nGame count: {self.game_count} ")
 
     # Print the overall scores of all games played
     def print_overall_scores(self):
-        print(f"\nOverall Scores -> Player: {self.player_wins}, Computer: {self.computer_wins}")
+        print(f"\nOverall Scores -> {self.name}: {self.player_wins}, Computer: {self.computer_wins}")
 
     # Ask the player if they want to play again
     def play_again(self):
-        choice = input("\nDo you want to play again? (Y to play again, Q to quit): ").strip().upper()
+        choice = input(f"\n{self.name}, do you want to play again? (Y to play again, Q to quit): ").strip().upper()
         if choice == 'Y':
             self.play_rps_game()
         elif choice == 'Q':
@@ -128,6 +129,29 @@ class RPSGame:
         self.print_overall_scores()
         self.play_again()
 
-# Create an instance of the game and start it
-game = RPSGame()
-game.play_rps_game()
+
+# This line checks if the script is being run directly (not imported as a module)
+if __name__ == '__main__':
+
+    import argparse
+
+    # Create an ArgumentParser object to handle command-line arguments
+    parser = argparse.ArgumentParser(
+        description="Provides a personalized game exp."
+    )
+
+    # Add a required argument for the name of the person to greet
+    parser.add_argument(
+        "-n", "--name", metavar="name",
+        required=True, help="The name of the person playing the game."
+    )
+
+    # Parse the command-line arguments
+    args = parser.parse_args()
+
+    # Create an instance of the game and start it
+    game = RPSGame(args.name)
+
+    # If the script is run directly, this line calls the play_rps_game method
+    # on the game object, which starts the Rock-Paper-Scissors game.
+    game.play_rps_game()
