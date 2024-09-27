@@ -39,6 +39,11 @@ print(add_ten(7))
 print(add_twenty(7))
 
 ########################
+# Higher Order Functions
+"""
+Higher-order functions are functions that take other functions as arguments or return functions as results.
+They allow you to abstract over actions, not just data.
+"""
 
 
 numbers = [3, 7, 12, 18, 20, 21]
